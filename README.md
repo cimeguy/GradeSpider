@@ -23,7 +23,7 @@
 
 
 ## 所需环境
-- 需要requests、bs4、lxml、pandas、openpyxl
+- 需要requests、bs4、(lxml)、pandas、(openpyxl)
 
 - 注意，需将所有库都更新到最新，否则部分函数无法使用：
     ``` 
