@@ -26,7 +26,7 @@
 - 需要requests、bs4、lxml、pandas、openpyxl
 
 - 注意，需将所有库都更新到最新，否则部分函数无法使用：
-    ``` python
+    ``` 
     pip list  # 查看已安装的所有的依赖包
     pip list --outdated -- format==columns  # 像表格一样列出所有已安装的依赖包的当前版本和可升级版本
     # 升级所有依赖包含如下两个命令
