@@ -111,4 +111,4 @@ ua_list=[#ua池
 3. 显示文件已经输出：
 ![excel文件](http://img.elfship.cn/img/QQ图片20200315010958.png)
 4. 在output文件夹中查看其中一个excel文件：
-![excel表格细节](http://img.elfship.cn/img/QQ图片20200315011035.png)
+![表格](http://img.elfship.cn/img/QQ图片20200315015157.png)
