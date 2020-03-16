@@ -31,7 +31,9 @@ def login(s,username,password):
         'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)',
         #百度
         'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36',
-        #谷歌    
+        #谷歌   
+        'User-Agent:Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
+        # Safari   
         'Mozilla/4.0(compatible;MSIE7.0;WindowsNT5.1;Maxthon2.0)'
         #傲游（Maxthon）
     ]
