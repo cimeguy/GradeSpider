@@ -81,8 +81,11 @@
         于是放弃从翱翔门户进入教务系统，而是直接找到教务系统的特定登录url: `http://us.nwpu.edu.cn/eams/login.action` 然后继续观察FormData，发现这次登录的表单信息更加简单，省略了随机数，仅有`username`、`password`、`encodedPassword`(这里为空)、`session_locale`（设置中英文的选项，中文用“zh-CN”表示）
         ![QQ图片20200316115059](http://img.elfship.cn/img/QQ图片20200316115059.png)
     
-最后顺利登录。
-
+    最后顺利登录。
+- 关于判断是否登录成功：
+  
+    原来的页面没有登录或者登录失败时，源码里有一个input标签，其属性name值为username,所以如果能够找到这个标签，则代表登录失败，如果没有，则代表已经跳转——登录成功。
+    ![name](http://img.elfship.cn/img/QQ图片20200316122348.png)
 
     
 ### （2）爬取
@@ -120,7 +123,7 @@ ua_list=[#ua池
     #百度
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36',
     #谷歌 
-    'User-Agent:Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
+    'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
     # Safari  
     'Mozilla/4.0(compatible;MSIE7.0;WindowsNT5.1;Maxthon2.0)'
     #（Maxthon）

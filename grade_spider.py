@@ -7,7 +7,7 @@ import pandas as pd
 import sys
 
 path = os.path.abspath(os.path.dirname(sys.argv[0]))#获得当前路径
-outputpath = path+'\\output'
+outputpath = path+'\\output'#创建output文件夹用
 
 base_url='http://us.nwpu.edu.cn/eams/login.action'#登录页面
 def mkdir(path):
@@ -32,7 +32,7 @@ def login(s,username,password):
         #百度
         'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36',
         #谷歌   
-        'User-Agent:Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
+        'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
         # Safari   
         'Mozilla/4.0(compatible;MSIE7.0;WindowsNT5.1;Maxthon2.0)'
         #傲游（Maxthon）
@@ -63,7 +63,8 @@ def login(s,username,password):
     html_login = post_login.text
     soup_login = bs(html_login, 'lxml')
     try:
-        
+        #是否登录成功，原来的页面没有登录或者登录失败时，有一个input标签，属性name值为username
+        #如果能够找到name代表登录失败，如果没有，则成功
         name = soup_login.find('input',attrs={'name':'username'})
         if name==None:
         # print(soup_login)
@@ -82,8 +83,8 @@ def search_part(s,termID):
     term_url = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId='+str(termID)+'&projectType='
     html_grade =s.get(term_url).text
     soup_grade = bs(html_grade,'lxml')
-    head_grade = soup_grade.find('thead',attrs={'class':"gridhead"})
-    heads = head_grade.find_all('th')
+    head_grade = soup_grade.find('thead',attrs={'class':"gridhead"})#找成绩单部分
+    heads = head_grade.find_all('th')#找成绩单头部信息
     trs_dict={}
     num=0
     for eachhead in heads:
@@ -114,10 +115,10 @@ def search_part(s,termID):
     return gradetable
 
 def search_grade(s):
-#查询成绩  学期表 存储跳转的url参数
+#查询成绩  学期表 存储跳转的url参数semid
     term_url_list = [
         ['2017-2018年秋学期',17],
-        ['2017-2018年春学期',35],#这个学期没有实验成绩
+        ['2017-2018年春学期',35],
         ['2018-2019年秋学期',18],
         ['2018-2019年春学期',36],
         ['2019-2020年秋学期',19],
@@ -138,12 +139,12 @@ def search_grade(s):
     print('\n查询'+term_url_list[inputID-1][0]+'成绩结果:\n')
     #成绩单的url以及url参数
     if inputID==6:
-        mkdir(outputpath)
-        writer = pd.ExcelWriter(outputpath+'\\所有学期成绩单.xlsx')
+        mkdir(outputpath)#创建output文件夹
+        writer = pd.ExcelWriter(outputpath+'\\所有学期成绩单.xlsx')#用该函数追加输出
         for i in range(1,6):
-            termID=term_url_list[i-1][1]
-            gradetable=search_part(s,termID=termID)
-            gradetable.to_excel(writer, str(term_url_list[i-1][0]))
+            termID=term_url_list[i-1][1]#获得学期的semid参数
+            gradetable=search_part(s,termID=termID)#查找函数
+            gradetable.to_excel(writer, str(term_url_list[i-1][0]))#输出
             writer.save()
 
     else:
@@ -161,17 +162,17 @@ if __name__ == "__main__":
         username=input("请输入学号/工号：")
         password = input("请输入密码：")
         s = requests.session()#设置session，页面跳转时不会退出
-        s= login(s,username,password)
+        s= login(s,username,password)#登录
         if s:
             while(1):
-                search_grade(s)
+                search_grade(s)#查找
                 cont = input('是否继续？(y or n) ')
                 if cont=='y':
                     continue
                 else:
                     break
             break
-        else:
+        else:#登录失败
             cont = input('是否继续？(y or n) ')
             if cont=='y':
                 continue
